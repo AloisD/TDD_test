@@ -36,16 +36,23 @@ class NewVisitorTest(unittest.TestCase):
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: Buy vine for next date' for row in rows),
-            "New to-do item did not appear in table"
-        )
+        self.assertIn('1: Buy vine for next date', [row.text for row in rows])
 
         # There still is a text box inviting user to type a nex item. The user enters "Buy cheese"
-        self.fail('Finish the test!')
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('Buy cheese')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
 
         # When user hits Enter the page updates and now lists both items
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('1: Buy vine for next date', [row.text for row in rows])
+        self.assertIn('2: Buy cheese', [row.text for row in rows])
+
         # The app generates a URL related to the user's list
+        self.fail('Finish the test!')
+
         # When visiting said URL the app shows the list    
 
 if __name__ == '__main__':
