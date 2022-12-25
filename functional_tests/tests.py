@@ -103,6 +103,3 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Iron my shirt', page_text)
 
         # Satisfied, both users go back to sleep
-
-        # When visiting said URL the app shows the list    
-        self.fail('Finish the test!')
